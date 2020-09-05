@@ -126,20 +126,23 @@ def terminate():
     os.killpg(os.getpgid(0), signal.SIGTERM)
 
 
-def initial_setup():
+def initial_setup(wallet=None, workername=None, region=None):
     print('nuxhashd initial setup')
 
-    wallet = ''
-    while not check_bc(wallet):
-        wallet = input('Wallet address: ')
+    if wallet is None:
+        wallet = ''
+        while not check_bc(wallet):
+            wallet = input('Wallet address: ')
 
-    workername = input('Worker name: ')
-    if workername == '':
-        workername = 'nuxhash'
+    if workername is None:
+        workername = input('Worker name: ')
+        if workername == '':
+            workername = 'nuxhash'
 
-    region = ''
-    while region not in ['eu', 'usa', 'hk', 'jp', 'in', 'br']:
-        region = input('Region (eu/usa/hk/jp/in/br): ')
+    if region is None:
+        region = ''
+        while region not in ['eu', 'usa', 'hk', 'jp', 'in', 'br']:
+            region = input('Region (eu/usa/hk/jp/in/br): ')
 
     print()
     return wallet, workername, region
