@@ -91,6 +91,7 @@ def main():
         nx_settings['nicehash']['wallet'] = wallet
         nx_settings['nicehash']['workername'] = workername
         nx_settings['nicehash']['region'] = region
+        print(f'Using {wallet} | {workername} | {region}')
 
     # Download and initialize miners.
     downloadables = make_miners(config_dir)
