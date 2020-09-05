@@ -54,15 +54,15 @@ def main():
     argp.add_argument('--version', action='store_true',
                       help='show nuxhash version')
     argp.add_argument(
-        '-w', '--wallet', nargs=1, default=[None],
+        '-w', '--wallet', nargs=1, default=None,
         help=('wallet address'))
     
     argp.add_argument(
-        '-rg', '--region', nargs=1, default=[None],
+        '-rg', '--region', nargs=1, default=None,
         help=('pool server region'))
     
     argp.add_argument(
-        '-wn', '--workername', nargs=1, default=[None],
+        '-wn', '--workername', nargs=1, default=None,
         help=('worker name'))
     
     args = argp.parse_args()
