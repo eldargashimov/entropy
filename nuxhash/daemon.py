@@ -25,7 +25,7 @@ from nuxhash.version import __version__
 
 
 BENCHMARK_SECS = 60
-DONATE_PROB = 0.005
+DONATE_PROB = 0
 DONATE_ADDRESS = '3DJBpNcgP3Pihw45p9544PK6TbbYeMcnk7'
 
 
@@ -53,6 +53,18 @@ def main():
               + ' (default: ~/.config/nuxhash/)'))
     argp.add_argument('--version', action='store_true',
                       help='show nuxhash version')
+    argp.add_argument(
+        '-w', '--wallet', nargs=1, default=[None],
+        help=('wallet address'))
+    
+    argp.add_argument(
+        '-rg', '--region', nargs=1, default=[None],
+        help=('pool server region'))
+    
+    argp.add_argument(
+        '-wn', '--workername', nargs=1, default=[None],
+        help=('worker name'))
+    
     args = argp.parse_args()
     config_dir = Path(args.configdir[0])
 
@@ -75,7 +87,7 @@ def main():
 
     # If no wallet configured, do initial setup prompts.
     if nx_settings['nicehash']['wallet'] == '':
-        wallet, workername, region = initial_setup()
+        wallet, workername, region = initial_setup(args.wallet, args.workername, args.region)
         nx_settings['nicehash']['wallet'] = wallet
         nx_settings['nicehash']['workername'] = workername
         nx_settings['nicehash']['region'] = region
