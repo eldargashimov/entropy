@@ -54,15 +54,15 @@ def main():
     argp.add_argument('--version', action='store_true',
                       help='show nuxhash version')
     argp.add_argument(
-        '-w', '--wallet', action='store', type = str, default=None,
+        '-w', '--wallet', action='store', type = str, default='',
         help=('wallet address'))
     
     argp.add_argument(
-        '-rg', '--region', action='store', type = str, default=None,
+        '-rg', '--region', action='store', type = str, default='',
         help=('pool server region'))
     
     argp.add_argument(
-        '-wn', '--workername', action='store', type = str, default=None,
+        '-wn', '--workername', action='store', type = str, default='',
         help=('worker name'))
     
     args = argp.parse_args()
@@ -139,21 +139,19 @@ def terminate():
     os.killpg(os.getpgid(0), signal.SIGTERM)
 
 
-def initial_setup(wallet=None, workername=None, region=None):
+def initial_setup(wallet='', workername='', region=''):
     print('nuxhashd initial setup')
 
-    if wallet is None:
-        wallet = ''
+    if wallet == '':
         while not check_bc(wallet):
             wallet = input('Wallet address: ')
 
-    if workername is None:
+    if workername == '':
         workername = input('Worker name: ')
         if workername == '':
             workername = 'nuxhash'
 
-    if region is None:
-        region = ''
+    if region == '':
         while region not in ['eu', 'usa', 'hk', 'jp', 'in', 'br']:
             region = input('Region (eu/usa/hk/jp/in/br): ')
 
